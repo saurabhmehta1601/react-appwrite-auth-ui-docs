@@ -1,0 +1,1 @@
+React appwrite Auth UI is a set of React components that can be used to quickly integrate the Appwrite Auth API into your React app. It is a wrapper around the Appwrite Auth API that provides a set of React components that can be used to quickly integrate the Appwrite Auth API into your React app.
