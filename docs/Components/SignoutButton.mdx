@@ -1,0 +1,14 @@
+```jsx
+import React from 'react'
+import { SignoutButton } from "react-appwrite-auth-ui"
+
+const MySignoutButton = () => {
+  const onAuthSuccess = (response) => {console.log('success in signout', response)}
+  const onAuthError = (error) => {console.log('error in signout', error) } 
+  return (
+    <SignoutButton onAuthSuccess={onAuthSuccess} onAuthError={onAuthError}>Signout</SignoutButton>
+  )
+}
+
+export default MySignoutButton
+```
