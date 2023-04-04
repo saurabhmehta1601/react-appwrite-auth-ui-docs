@@ -1,0 +1,26 @@
+A button component to signout currently authenticated user.
+
+```jsx
+import React from 'react'
+import { AnonymouseSigninButton } from "react-appwrite-auth-ui"
+
+const MyAnonymousSigninButton = () => {
+
+  const onAuthError = (error) => {
+    console.log("error in anonymous signin" , error)
+  }
+
+  const onAuthSuccess = (response) => {
+    console.log('success in anonymous signin', response)
+  }
+
+  return (<AnonymouseSigninButton 
+      onAuthError={onAuthError}
+      onAuthSuccess={onAuthSuccess}
+      >
+    Signin Anonymously
+  </AnonymouseSigninButton>)
+}
+
+export default AnonymouseSigninButton
+```
