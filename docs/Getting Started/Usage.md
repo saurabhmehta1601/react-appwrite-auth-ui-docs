@@ -1,51 +1,48 @@
 ## Quick Start
 
-### Create simple signup form
+### Create simple email signup form
 The following code snippet renders a form for user signup with email and password fields. 
 
 ```jsx
 import React from 'react'
-import {Button, EmailSignupForm, FormControl} from "react-appwrite-auth-ui"
+import {Button, EmailSignupForm, FormControl, FormList} from "react-appwrite-auth-ui"
 
-const EmailForm = () => {
+const MyForm = () => {
   const [email, setEmail] = React.useState("")
   const [password, setPassword] = React.useState("")
 
-  const onAuthSuccess = (response) => {
+  const onAuthError = (error) => {
     console.log("error in signup" , error)
   }
 
-  const onAuthError = (error) => {
+  const onAuthSuccess = (response) => {
     console.log('success in email signup', response)
   }
 
-  return (
-    <EmailSignupForm 
+  return (<EmailSignupForm 
       email={email}
       password={password}
       onAuthError={onAuthError}
       onAuthSuccess={onAuthSuccess}
       >
+        <FormList>
         <FormControl 
           label='Email' 
           type='email'
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          />
-
+          onChange={(e) => setEmail(e.target.value)}/>
         <FormControl 
           label='Password' 
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          />
-
-        <Button type='submit'> Submit </Button>
-    </EmailSignupForm>
+          onChange={(e) => setPassword(e.target.value)}/>
+        </FormList>
+        <Button type='submit' className='u-margin-block-start-16' > Submit </Button>
+      </EmailSignupForm>
   )
 }
 
-export default EmailForm
+export default MyForm 
 ```
 
 ### Access authenticated user
@@ -55,7 +52,7 @@ The authenticated user can be accessed with react hook `useAuthenticatedUser` .
 import React from 'react'
 import {useAuthenticatedUser } from "react-appwrite-auth-ui"
 
-const GetAuthenticatedUser = () => {
+const MyAuthenticatedUser = () => {
   const {loading,error,user}= useAuthenticatedUser()
 
   if(loading) return <p>loading ⌚...</p>
@@ -65,7 +62,7 @@ const GetAuthenticatedUser = () => {
   return  <p>Logged in with email id {user.email}</p>
 }
 
-export default GetAuthenticatedUser
+export default MyAuthenticatedUser
 ```
 
 ### Signout authenticated user

@@ -32,7 +32,7 @@ const sidebars = {
       link: {
         type: 'generated-index'
       },
-      items: ['Components/FormControl']
+      items: ['Components/Button','Components/AnonymousSigninButton','Components/SignoutButton', 'Components/FormControl']
     }
 
   ]

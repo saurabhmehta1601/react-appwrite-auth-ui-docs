@@ -1,15 +1,19 @@
+import {FormControl} from "react-appwrite-auth-ui"
+//import "@appwrite.io/pink"
+
 The FormControl is combination of label with input field. 
 
 ```jsx
 import { FormControl } from 'react-appwrite-ui';
 
 export default function App() {
-  const []
+  const [email,setEmail] = useState('')
   return (
     <FormControl
       label="Email"
       placeholder="Enter your email"
-      type="email"
-      value=""
+      type='email'
+      value={email}
+      onChange={(e) => {setEmail(e.target.value)}}
     />
 ```
