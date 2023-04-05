@@ -33,8 +33,15 @@ const sidebars = {
         type: 'generated-index'
       },
       items: ['Components/Button','Components/AnonymousSigninButton','Components/SignoutButton', 'Components/FormControl']
+    },
+    {
+      type: 'category',
+      label: 'Guides',
+      link: {
+        type: 'generated-index'
+      },
+      items: ['Guides/signup with email']
     }
-
   ]
 }
 
