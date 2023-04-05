@@ -40,7 +40,7 @@ const sidebars = {
       link: {
         type: 'generated-index'
       },
-      items: ['Guides/signup with email']
+      items: ['Guides/signup with email' , 'Guides/signin with email']
     }
   ]
 }

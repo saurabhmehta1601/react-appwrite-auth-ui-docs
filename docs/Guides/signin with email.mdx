@@ -1,6 +1,6 @@
 ```jsx
 import React from 'react'
-import {Button, EmailSignupForm, FormControl, FormList} from "react-appwrite-auth-ui"
+import {Button, EmailSigninForm, FormControl, FormList }  from "react-appwrite-auth-ui"
 
 const MyForm = () => {
   const [email, setEmail] = React.useState("")
@@ -14,7 +14,7 @@ const MyForm = () => {
     console.log('success in email signup', response)
   }
 
-  return (<EmailSignupForm 
+  return (<EmailSigninForm 
       email={email}
       password={password}
       onAuthError={onAuthError}
@@ -32,8 +32,8 @@ const MyForm = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}/>
         </FormList>
-        <Button type='submit' className='u-margin-block-start-16' > Sign up</Button>
-      </EmailSignupForm>
+        <Button type='submit' className='u-margin-block-start-16' > Sign in </Button>
+      </EmailSigninForm>
   )
 }
 
