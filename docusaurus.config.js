@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'React Appwrite Auth UI',
-  tagline: 'A react library to develop UI for authentication in web',
+  tagline: 'A react component library to implement auth with appwrite',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
