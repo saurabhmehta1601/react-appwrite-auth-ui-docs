@@ -16,18 +16,29 @@ yarn create vite
 ```
 ### 2. Install dependencies
 
+Install node modules with npm or yarn
+
+With NPM 
+```bash
+npm install
+``` 
+With YARN
+```bash
+yarn
+``` 
+Install our library with peer dependencies using npm or yarn
 With NPM 
 ```bash
 npm install appwrite @appwrite.io/pink  react-appwrite-auth-ui
 ```
 
-With Yarn
+With YARN
 ```bash
 yarn add appwrite @appwrite.io/pink react-appwrite-auth-ui 
 ```
 
 ### 3. Setup AppwriteProvider with Appwrite SDK
-
+Open the entry point of your app (usually `main.jsx` or `index.jsx`) and wrap your app with AppwriteProvider and pass the client and account object as props .
 
 ```tsx
 # main.jsx
