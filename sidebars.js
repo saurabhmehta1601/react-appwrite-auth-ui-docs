@@ -36,6 +36,14 @@ const sidebars = {
     },
     {
       type: 'category',
+      label: 'Hooks',
+      link: {
+        type: 'generated-index'
+      },
+      items: ['Hooks/useAuthenticatedUser']
+    },
+    {
+      type: 'category',
       label: 'Guides',
       link: {
         type: 'generated-index'

@@ -1,0 +1,20 @@
+Sample code on using the useAuthenticatedUser hook
+
+```jsx
+import React from "react"
+import {useAuthenticatedUser} from "react-appwrite-auth-ui"
+
+export default function MyComponent(){
+  const {user, loading, error} = useAuthenticatedUser()
+
+  if(loading) return <div>Loading...</div>
+  if(error) return <div>Error: {error.message}</div>
+  return <div>Hello {user.name}</div>
+}
+```
+
+### Return type 
+This hook returns an object with the following properties:
+* `user`: The user object returned by the Appwrite API. This object is `null` if the user is not authenticated.
+* `loading`: A boolean indicating if the user is being fetched from the Appwrite API.
+* `error`: An error object if an error occurred while fetching the user. This object is `null` if no error occurred.
