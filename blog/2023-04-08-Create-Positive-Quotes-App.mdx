@@ -1,0 +1,66 @@
+---
+title: "Build a Positive Quote app"
+authors: [saurabhmehta]
+---
+
+### Aim 
+
+In this tutorial we will build a simple Positive Quote App using React and Appwrite. This app will show list of positive quotes to user only if the user is logged in . We will be implementing email and password based authentication with our library `react-appwrite-auth-ui` . 
+
+:::note
+The source code for this tutorial is available here on [Github](https://github.com/saurabhmehta1601/tutorial-positive-quote-app-with-react-appwrite-auth-ui) . 
+:::
+
+### Project Structure
+
+#### Pages
+
+Our App consists of 3 pages 
+
+1. `SigninPage` : This page will be used to sign in the user with email and password.
+
+2. `SignupPage` : This page will be used to sign up the user with email and password.
+
+3. `Homepage` : This page will be used to show the list of positive quotes to the user.
+
+#### Components 
+
+The components used in our app are :
+
+1. `Header`: This component will be used to show the header of our app. This component will show sign out to user if user is logged in else it will show sign in .
+
+2. `Quotes`: This component will be used to show the list of quotes to the user. This component will be rendered on Homepage if user is logged in else not .
+
+## Now , lets get started with building our app
+
+### Step 1.Install React App with Vitejs
+
+![My image](/install.gif)
+
+1. Select a destination where you want to create your project and run the following command to create a new react app with vitejs . 
+
+```bash
+npm create vite@latest
+```
+
+2. Follow the prompt and answer the following questions :
+
+  2.1 Choose your project name .
+
+  > Note:  this will be the name of the subfolder created by vitejs containing your react app . Enter `.` to create project in current folder .
+
+  2.2 Select `React` as framework with `Javascript` as variant.
+
+3. Move to the folder where your project is created and run the following command to install the dependencies .
+
+```bash
+npm install 
+```
+
+![My image](/positive-quotes-app-1.png)
+
+
+### Before Getting Started
+:::caution
+Before getting started with this tutorial, make sure you have appwrite backend server running . If you dont know to how to do that, check out the [installation guide](https://appwrite.io/docs/installation) .
+:::
