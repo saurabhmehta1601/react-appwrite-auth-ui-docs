@@ -197,7 +197,7 @@ Please make sure you have appwrite backend server running fine . If you dont kno
 <center>
 <figure>
 
-![My image](/install.gif)
+![Install React App](/blogs/positive-quotes-app/install-react-app.gif)
 
 <figcaption>Fig. setup new react app</figcaption>
 </figure>
@@ -255,14 +255,19 @@ All our css will reside in single file `index.css` in src folder .
 
 2. Clean all code inside `App.jsx` and replace the code with simple React Component that renders `Hello World` on screen :
 
-`App.jsx`
-```jsx
-import React from "react"
+  <details>
 
-export default function App() {
-  return <div> Hello world </div>
-}
-```
+  <summary>App.jsx</summary>
+
+  ```jsx
+  import React from "react"
+
+  export default function App() {
+    return <div> Hello world </div>
+  }
+  ```
+
+  </details>
 
 3. Remove `assets` folder and `App.css` file from `src` folder since they are not required anymore .
 
@@ -542,3 +547,176 @@ You have successfully setup the library .
     export default Quotes
     ```
     </details>
+
+### Building Pages
+
+  1.`Homepage`: This page calls the useAuthenticatedUser hook. If the hook returns a loading state, it returns a loading component. If the hook returns an error, it redirects the user to the sign-in page. Otherwise, it returns the page with the header and the quotes component.
+
+  <details>
+
+  <summary> Homepage.jsx </summary>
+
+  ```jsx
+  import React from 'react'
+  import Header from '../components/Header'
+  import { useAuthenticatedUser } from 'react-appwrite-auth-ui'
+  import { Navigate } from 'react-router-dom'
+  import Quotes from '../components/Quotes'
+
+  const HomePage = () => {
+    const {user,loading,error} = useAuthenticatedUser()
+
+    if(loading){
+      return <div className='loading__page'>
+        <div className="loading__section">
+          <span className="loading__spinner"></span>
+          <h3 className='loading__text'>Loading...</h3>
+        </div>
+      </div>
+    }
+
+    if(error){
+      return <Navigate to='/sign-in' />
+    }
+
+    return (<div>
+      <Header /> 
+      {!user ? 
+        <section className='unauthorized__section'>You must login to see quotes</section> :
+        <Quotes />
+      }
+    </div>) 
+  }
+
+
+  export default HomePage
+  ```
+  </details>
+
+  2.`SigninPage`: Use the EmailSigninForm component to render a form that allows users to sign in with their email and password. The component takes the email and password as props. It also takes two callbacks, onAuthError and onAuthSuccess. The onAuthError callback is called when the user fails to sign in. The onAuthSuccess callback is called when the user successfully signs in.
+
+  <details>
+
+  <summary>SigninPage.jsx</summary>
+
+  ```jsx
+  import React from 'react'
+  import { Button, EmailSigninForm, FormControl, FormList } from 'react-appwrite-auth-ui'
+  import { Link, useNavigate } from 'react-router-dom'
+
+  const SigninPage = () => {
+    const [email, setEmail] = React.useState("")
+    const [password, setPassword] = React.useState("")
+
+    const navigate = useNavigate()
+
+    const onAuthError = (error) => {
+      alert('user login failed 💔')
+    }
+
+    const onAuthSuccess = (response) => {
+      console.log('user login successful')
+      navigate('/')
+    }
+
+    return (
+      <div className='h-screen grid-center'>
+        <EmailSigninForm 
+          email={email}
+          password={password}
+          onAuthError={onAuthError}
+          onAuthSuccess={onAuthSuccess}
+        >
+          <FormList>
+            <FormControl 
+              label='Email' 
+              type='email'
+              theme="dark"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}/>
+            <FormControl 
+              label='Password' 
+              type="password"
+              theme="dark"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}/>
+          </FormList>
+          <Link className='u-margin-block-start-8 link' to='/sign-up'>Don't have an account yet ? Signup instead .</Link>
+          <Button type='submit' className='u-margin-block-start-16' > Sign in </Button>
+        </EmailSigninForm>
+      </div>
+    )
+  }
+
+  export default SigninPage
+  ```
+  </details>
+
+  3.`SignupPage`: Use the EmailSignupForm component to render a form that allows users to sign up with their email and password. The component takes the email, password, and name as props. It also takes two callbacks, onAuthError and onAuthSuccess. The onAuthError callback is called when the user fails to sign up. The onAuthSuccess callback is called when the user successfully signs up.
+
+  <details>
+
+  <summary>SignupPage.jsx</summary>
+
+  ```jsx
+  import React from 'react'
+  import { Button, EmailSignupForm, FormControl, FormList } from 'react-appwrite-auth-ui'
+  import { Link, useNavigate } from 'react-router-dom'
+
+  const SignupPage = () => {
+    const [email, setEmail] = React.useState("")
+    const [password, setPassword] = React.useState("")
+
+    const navigate = useNavigate()
+
+    const onAuthError = (error) => {
+      alert('user creation failed 💔')
+    }
+
+    const onAuthSuccess = (response) => {
+      alert('user created successfully')
+      navigate('/')
+    }
+
+    return (
+      <div className='h-screen grid-center'>
+        <EmailSignupForm 
+          email={email}
+          password={password}
+          onAuthError={onAuthError}
+          onAuthSuccess={onAuthSuccess}
+        >
+          <FormList>
+            <FormControl 
+              label='Email' 
+              type='email'
+              value={email}
+              theme='dark'
+              onChange={(e) => setEmail(e.target.value)}/>
+            <FormControl 
+              label='Password' 
+              type="password"
+              value={password}
+              theme='dark'
+              onChange={(e) => setPassword(e.target.value)}/>
+          </FormList>
+          <Link className='u-margin-block-start-8 link' to='/sign-in'>Already have an account ? Signin instead .</Link>
+          <Button type='submit' className='u-margin-block-start-16' > Sign up </Button>
+        </EmailSignupForm>
+      </div>
+    )
+  }
+
+  export default SignupPage
+  ```
+
+  </details>
+
+
+  ### Congrats 🎉🍾🎊
+
+  You have successfully build the App . The app looks like this: 
+
+  ![Web App pages](/blogs/positive-quotes-app/web-app-pages.gif)
+
+  You can view the source code for this project on [Github](https://github.com/saurabhmehta1601/tutorial-positive-quote-app-with-react-appwrite-auth-ui) .
