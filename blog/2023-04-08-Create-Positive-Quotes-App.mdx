@@ -3,7 +3,7 @@ title: "Build a Positive Quote app"
 authors: [saurabhmehta]
 ---
 
-### Aim 
+### Aim 🎯
 
 In this tutorial we will build a simple Positive Quote App using React and Appwrite. This app will show list of positive quotes to user only if the user is logged in . We will be implementing email and password based authentication with our library `react-appwrite-auth-ui` . 
 
@@ -11,7 +11,7 @@ In this tutorial we will build a simple Positive Quote App using React and Appwr
 The source code for this tutorial is available here on [Github](https://github.com/saurabhmehta1601/tutorial-positive-quote-app-with-react-appwrite-auth-ui) . 
 :::
 
-### Project Structure
+### Project Structure 📂
 
 #### Pages
 
@@ -31,11 +31,178 @@ The components used in our app are :
 
 2. `Quotes`: This component will be used to show the list of quotes to the user. This component will be rendered on Homepage if user is logged in else not .
 
-## Now , lets get started with building our app
+#### Styling
+
+All out app styles will be in single file `index.css` .
+
+Since the aim of this project is not teaching css. You can copy all the css from here and paste it into index.css . 
+<details>
+
+<summary>index.css</summary>
+
+```css
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+*,*::after,*::before{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  min-height: 100vh;
+  font-family: 'Lato', sans-serif;
+  color: #eee ;
+  background: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%);
+}
+
+.link {
+  color: rgb(95, 200, 241);
+}
+
+.navbar__container{ 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.navbar__logo{
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.navbar__link {
+  border: 1.5px solid white;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s ease-in;
+}
+
+.navbar__link:hover{
+  background: #eee;
+  color: #000;
+}
+
+.loading__page {
+  display: grid;
+  place-items: center;
+  z-index: 11;
+  position: fixed;
+  background-color: #333;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.loading__section{
+  display: flex;
+  row-gap: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading__text {
+  font-size: 1.9rem;
+  font-weight: 500;
+}
+
+.loading__spinner {
+  color: #ffffff;
+  font-size: 45px;
+  text-indent: -9999em;
+  overflow: hidden;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  position: relative;
+  transform: translateZ(0);
+  animation: mltShdSpin 1.7s infinite ease, round 1.7s infinite ease;
+}
+
+@keyframes mltShdSpin {
+  0% {
+    box-shadow: 0 -0.83em 0 -0.4em,
+    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  5%,
+  95% {
+    box-shadow: 0 -0.83em 0 -0.4em, 
+    0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 
+    0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+  10%,
+  59% {
+    box-shadow: 0 -0.83em 0 -0.4em, 
+    -0.087em -0.825em 0 -0.42em, -0.173em -0.812em 0 -0.44em, 
+    -0.256em -0.789em 0 -0.46em, -0.297em -0.775em 0 -0.477em;
+  }
+  20% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+     -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em, 
+     -0.749em -0.34em 0 -0.477em;
+  }
+  38% {
+    box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+     -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em, 
+     -0.82em -0.09em 0 -0.477em;
+  }
+  100% {
+    box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 
+    0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+  }
+}
+
+@keyframes round {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg) }
+}
+
+.quote__list{
+  padding: 1em 1.5em;
+  margin: 1em;
+  border-radius: 8px;
+  display: grid;
+  row-gap: 0.5em;
+  background-color: rgb(250, 242, 242);
+}
+
+.quote__item {
+  font-size: 0.8rem;
+  font-family: cursive;
+  color: #333;
+}
+
+/* CSS Utility classes */
+.h-screen{ height: 100vh; }
+.grid-center{ display: grid; place-items: center; }
+
+```
+</details>
+
+### Before getting started  
+
+:::caution
+Please make sure you have appwrite backend server running fine . If you dont know to how to do that, check out the [installation guide](https://appwrite.io/docs/installation) for appwrite .
+:::
+## Now , lets start building our app 🏃‍♂️💨
 
 ### Step 1.Install React App with Vitejs
 
+<center>
+<figure>
+
 ![My image](/install.gif)
+
+<figcaption>Fig. setup new react app</figcaption>
+</figure>
+
+</center>
 
 1. Select a destination where you want to create your project and run the following command to create a new react app with vitejs . 
 
@@ -51,16 +218,129 @@ npm create vite@latest
 
   2.2 Select `React` as framework with `Javascript` as variant.
 
-3. Move to the folder where your project is created and run the following command to install the dependencies .
+3. Move to the folder where your project is created and run the following command to install the dependencies for your newly created react app .
 
 ```bash
 npm install 
 ```
+Now, your project directory should look like this :
 
-![My image](/positive-quotes-app-1.png)
+```bash
+|-node_modules
+|-public
+|   |--- vite.svg
+|
+|-src
+|   |--- assets
+|   |       |--- react.svg
+|   |
+|   |--- App.css
+|   |--- App.jsx
+|   |--- index.css
+|   |--- main.jsx
+|
+|-.gitignore
+|-index.html
+|-package-lock.json
+|-package.json
+|-vite.config.js
 
+```
 
-### Before Getting Started
-:::caution
-Before getting started with this tutorial, make sure you have appwrite backend server running . If you dont know to how to do that, check out the [installation guide](https://appwrite.io/docs/installation) .
-:::
+### Step 2. Build Folder Structure and refactor code
+
+All our css will reside in single file `index.css` in src folder . 
+
+1. Since the aim of this project is not teaching you css , replace css code from [here](https://raw.githubusercontent.com/saurabhmehta1601/tutorial-positive-quote-app-with-react-appwrite-auth-ui/main/src/index.css) on github with existing css in `index.css`. 
+
+2. Clean all code inside `App.jsx` and replace the code with simple React Component that renders `Hello World` on screen :
+
+`App.jsx`
+```jsx
+function App() {
+
+  return (
+    <div> Hello world </div>
+  )
+}
+
+export default App
+```
+
+3. Remove `assets` folder and `App.css` file from `src` folder since they are not required anymore .
+
+4. Create folders named `components` and `pages` inside `src` folder .
+
+    * Inside components folder create React components `Header.jsx` and `Quotes.jsx` .
+
+      <details>
+
+      <summary>Header.jsx</summary>
+
+      ```jsx
+
+      import React from 'react'
+
+      export default function Header(){
+        return <div>Header</div>
+      }
+
+      ```
+      </details>
+
+      <details>
+
+      <summary>Quotes.jsx</summary>
+
+      ```jsx
+      import React from 'react'
+
+      export default function Quotes(){
+        return <div>Quotes</div>
+      }
+      ```
+      </details>
+
+    
+    * Inside pages folder create React components `HomePage.jsx` , `SigninPage.jsx` and  `SignupPage` .
+
+      <details>
+
+      <summary>HomePage.jsx</summary>
+
+      ```jsx
+      import React from 'react'
+
+      export default function HomePage(){
+        return <div>HomePage</div>
+      }
+      ```
+      </details>
+
+      <details>
+
+      <summary>SigninPage.jsx</summary>
+
+      ```jsx
+      import React from 'react'
+
+      export default function SigninPage(){
+        return <div>SigninPage</div>
+      }
+      ```
+      </details>
+
+      <details>
+
+      <summary>SignupPage.jsx</summary>
+
+      ```jsx
+      import React from 'react'
+
+      export default function SignupPage(){
+        return <div>SignupPage</div>
+      }
+      ```
+      </details>
+
+5. Inside `src` create a file named `positiveQuotes.js` from which we will default export array of positive quotes where each quotes object has  `id` and `text` field . Paste positive Quotes from [here](https://raw.githubusercontent.com/saurabhmehta1601/tutorial-positive-quote-app-with-react-appwrite-auth-ui/main/src/positiveQuotes.js) on github .
