@@ -432,7 +432,7 @@ Now, the folder structure should look like this :
   ```
   </details>
 
-### Step 4. Integrate library with React App .
+### Step 4. Add AppwriteAuthUIProvider to App 
 
 1. Install Appwrite web SDK , react-appwrite-auth-ui UI library  and pink design css packages from npm .
 
@@ -456,6 +456,7 @@ npm install appwrite @appwrite.io/pink  react-appwrite-auth-ui
   import App from './App'
   import './index.css'
   import '@appwrite.io/pink'
+  import { BrowserRouter } from 'react-router-dom'
 
   import {Client,Account} from "appwrite"
   import { AppwriteAuthUIProvider } from 'react-appwrite-auth-ui'
@@ -467,18 +468,77 @@ npm install appwrite @appwrite.io/pink  react-appwrite-auth-ui
   const account = new Account(client)
 
   ReactDOM.createRoot(document.getElementById('root')).render(
-    <AppwriteAuthUIProvider client={client} account={account}>
-      <React.StrictMode>
-        <App />
-      </React.StrictMode>
-    </AppwriteAuthUIProvider>
+    <BrowserRouter>
+      <AppwriteAuthUIProvider client={client} account={account}>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </AppwriteAuthUIProvider>
+    </BrowserRouter>
   )
+    )
   ```
 
   </details>
 
 You have successfully setup the library .
 
-### Step 4. Building pages
+### Step 5. Building components
 
-  1. `Building Header` : 
+  1. `Header` : The header component uses `useAuthenticatedUser` hook to get the authenticated user and `SignoutButton` component to signout the user . If the user is not authenticated then it will show a link to sign in page .
+
+    <details>
+
+    <summary> Header.jsx </summary>
+
+    ```jsx
+  import React from 'react'
+  import { SignoutButton, useAuthenticatedUser } from 'react-appwrite-auth-ui'
+  import { Link , useNavigate } from 'react-router-dom'
+
+  const Header = () => {
+    const {loading,error,user} = useAuthenticatedUser()
+    const navigate = useNavigate()
+
+    const handleSignoutSuccess = () => {
+      navigate('/sign-in')
+    }
+
+    return (
+      <nav className='navbar__container'>
+        <h3 className='navbar__logo'>Positive Quotes</h3>
+        { (!loading && !error && user) ? 
+        (<SignoutButton 
+          onAuthError={(error) => {alert(error)}} 
+          onAuthSuccess={ handleSignoutSuccess }
+          >Sign out</SignoutButton>) :
+        <Link className='navbar__link' to="/sign-in">Sign in</Link>}
+      </nav>
+    )
+  }
+
+  export default Header
+    ```
+    </details>
+
+  2.`Quotes`: The Quotes component renders a collection of quotes from positiveQuotes.js.
+
+    <details>
+
+    <summary> Quotes.jsx </summary>
+
+    ```jsx
+    import React from "react"
+    import positiveQuotes from "../positiveQuotes"
+
+    const Quotes = () => {
+      return <div className="quote__list">
+        {positiveQuotes.map((quote,idx) => <p key={quote.id} className="quote__item">
+          {idx+1}. {quote.text}
+        </p>)}
+      </div>
+    }
+
+    export default Quotes
+    ```
+    </details>
