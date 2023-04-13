@@ -257,14 +257,11 @@ All our css will reside in single file `index.css` in src folder .
 
 `App.jsx`
 ```jsx
-function App() {
+import React from "react"
 
-  return (
-    <div> Hello world </div>
-  )
+export default function App() {
+  return <div> Hello world </div>
 }
-
-export default App
 ```
 
 3. Remove `assets` folder and `App.css` file from `src` folder since they are not required anymore .
@@ -344,3 +341,81 @@ export default App
       </details>
 
 5. Inside `src` create a file named `positiveQuotes.js` from which we will default export array of positive quotes where each quotes object has  `id` and `text` field . Paste positive Quotes from [here](https://raw.githubusercontent.com/saurabhmehta1601/tutorial-positive-quote-app-with-react-appwrite-auth-ui/main/src/positiveQuotes.js) on github .
+
+Now, the folder structure should look like this :
+
+```bash
+|-node_modules
+|-public
+|   |--- vite.svg
+|
+|-src
+|   |--- components
+|   |       |--- Header.jsx
+|   |       |--- Quotes.jsx
+|   |
+|   |--- pages
+|   |       |--- HomePage.jsx
+|   |       |--- SigninPage.jsx
+|   |       |--- SignupPage.jsx
+|   |
+|   |--- App.jsx
+|   |--- index.css
+|   |--- main.jsx
+|   |--- positiveQuotes.js
+|
+|-.gitignore
+|-index.html
+|-package-lock.json
+|-package.json
+|-vite.config.js
+
+```
+### Step 3. Integrate our library in App .
+
+1. Install Appwrite web SDK , react-appwrite-auth-ui UI library  and pink design css packages from npm .
+
+```bash
+npm install appwrite @appwrite.io/pink  react-appwrite-auth-ui
+```
+2. Inside `main.jsx` do these tasks : 
+
+    I. import pink design from `@appwrite.io/pink` . <br />
+    II. Create `Client` and `Account` instance using `appwrite` library .Client instance will require `projectId` and `endPoint` , you can get both from overview section in settings inside appwrite console for your project .<br />
+    III. Pass these instances as props to `AppwriteAuthUIProvider ` component .<br />
+    IV. Wrap `App` component with `AppwriteAuthUIProvider` . <br />
+
+  <details>
+
+  <summary> main.jsx </summary>
+
+  ```jsx
+  import React from 'react'
+  import ReactDOM from 'react-dom/client'
+  import App from './App'
+  import './index.css'
+  import '@appwrite.io/pink'
+
+  import {Client,Account} from "appwrite"
+  import { AppwriteAuthUIProvider } from 'react-appwrite-auth-ui'
+
+  const endpoint = "http://localhost:4321/v1" // YOUR API ENDPOINT
+  const projectId = "63ff40968cfee425c0ac"  // YOUR PROJECT ID
+
+  const client  = new Client().setProject(projectId).setEndpoint(endpoint)
+  const account = new Account(client)
+
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    <AppwriteAuthUIProvider client={client} account={account}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </AppwriteAuthUIProvider>
+  )
+  ```
+
+  </details>
+
+You have successfully setup the library .
+
+### Step 4. Building the HomePage
