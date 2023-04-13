@@ -371,7 +371,68 @@ Now, the folder structure should look like this :
 |-vite.config.js
 
 ```
-### Step 3. Integrate our library in App .
+
+### Step 3. Setup Routing
+  Since there are multiple pages in our app we will setup our routes with `react-router-dom` .
+
+  1. Install `react-router-dom` package from npm .
+
+  ```bash
+  npm install react-router-dom
+  ```
+
+  2. Setup BrowserRouter in `main.jsx` and setup Routes in `App.jsx`
+
+  <details>
+
+  <summary> main.jsx </summary>
+
+  ```jsx
+  import React from 'react'
+  import ReactDOM from 'react-dom/client'
+  import App from './App'
+  import './index.css'
+  import { BrowserRouter } from 'react-router-dom'
+
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    <BrowserRouter>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </BrowserRouter>
+  )
+
+  ```
+
+  </details>
+
+  <details>
+  
+  <summary>App.jsx</summary>
+
+  ```jsx
+  import { Routes, Route } from "react-router-dom"
+  import HomePage from "./pages/HomePage"
+  import SigninPage from "./pages/SigninPage"
+  import SignupPage from "./pages/SignupPage"
+
+  function App() {
+
+    return (
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/sign-in" element={<SigninPage />} />
+        <Route path="/sign-up" element={<SignupPage />} />
+      </Routes>
+    )
+  }
+
+  export default App
+
+  ```
+  </details>
+
+### Step 4. Integrate library with React App .
 
 1. Install Appwrite web SDK , react-appwrite-auth-ui UI library  and pink design css packages from npm .
 
@@ -418,4 +479,6 @@ npm install appwrite @appwrite.io/pink  react-appwrite-auth-ui
 
 You have successfully setup the library .
 
-### Step 4. Building the HomePage
+### Step 4. Building pages
+
+  1. `Building Header` : 
