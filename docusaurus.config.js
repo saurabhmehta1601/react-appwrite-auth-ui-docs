@@ -83,7 +83,7 @@ const config = {
           },
           { to: '/blog', label: 'Blogs', position: 'left' },
           {
-            href: 'https://github.com/appwrite-octernship/create-add-on-package-ui-helper-libraries-saurabhmehta1601',
+            href: 'https://github.com/saurabhmehta1601/react-appwrite-auth-ui-docs',
             label: 'GitHub',
             position: 'right'
           }
