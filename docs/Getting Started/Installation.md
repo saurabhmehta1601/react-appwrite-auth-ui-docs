@@ -29,12 +29,12 @@ yarn
 Install our library with peer dependencies using npm or yarn
 With NPM 
 ```bash
-npm install appwrite @appwrite.io/pink  react-appwrite-auth-ui
+npm install appwrite @appwrite.io/pink  react-appwrite-auth-ui --legacy-peer-deps
 ```
 
 With YARN
 ```bash
-yarn add appwrite @appwrite.io/pink react-appwrite-auth-ui 
+yarn add appwrite @appwrite.io/pink react-appwrite-auth-ui --legacy-peer-deps
 ```
 
 ### 3. Setup AppwriteProvider with Appwrite SDK
